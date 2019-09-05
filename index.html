@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>The Farm</title>
+
+    <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div id="headStyle">
+    <img src="" width="100" height="100" id="holder"> <br><br><br>
+    <div id="welcome">Welcome</div>
+    <div id="HiMsg">Edit a profile and collect all Tickets in order to Retire from The Farm.<br>You can change your profile at any time.</div>
+    <input type="button" onclick="openEdit()" value="Edit Profile" id="edit">
+    <input type="button" onclick="pickGame()" value="Play" id="pickGame">
+    <input type="button" onclick="showTickets()" value="Tickets" id="ticketButton">
+    <input type="button" onclick="showShop()" value="Shop" id="shop">
+    <input type="button" onclick="RetireAcc()" value="Retire" id="RetireTheGame">
+        <div id="moneyPlace">$$$: 
+            <div id="money">0</div>
+        </div>
+    </div> 
+    <!-- Retire the game -->
+    <div id="RetireMsg">If you retire all of your progress will be lost<br><br>
+        <button id="confurmRetire">RETIRE</button>
+    </div>
+    <!-- NAME MENU -->
+    <input type="button" id="nameEdit" value="Enter your name" onclick="showPlayerNameInput()"> <br><br>
+    <div id="nameShow"> Enter your name: <br>
+        <input type="text" id="playerNameTxt">
+        <input type="button" value="Submit" onclick="submitName()"><br><br>
+    </div>
+
+    <!-- IMAGE MENU -->
+    <input type="button" id="imgEdit" value="Enter your picture" onclick="playerImg()"> <br>
+    <div id="showImg"> <br>
+        <div id="output"></div>
+        <canvas id="canvas"></canvas> <br><br>
+        <input type="color" id="bgColor">
+        <input type="button" id="save" value="save">    
+        <input type="button" id="clear" value="clear">
+        <input type="file" id="imgLoader">
+    </div>
+
+    <!-- GAME MENU -->
+    <div id="gameMenuPosition">
+        <!-- Bulls and Cows Game -->
+        <input type="button" value="Bulls and Cows" id="BullsandCows" onclick="bullsAndCows()">
+        <div id="chooseMode"> <br>
+            <!-- Agents game (Normal mode) -->
+            <input type="button" id="agent" value="Play as an Agent" onclick="playAsFarmer()"><br><br>
+            <div id="farmercase">
+                <div>
+                    Agent Mode Game is a standart Bulls and Cows<br>
+                    <input type="button" value="New Game" id="resetAdminsGame" > <br><br>
+                    <input type="button" value="Reveal the number" id="revealNum"> <br><br>
+                    Guesses for Numbers: <br>
+                    <input type="text" id="guesses4Num" maxlength="1" value="">
+                    <input type="text" id="guesses4Num1" maxlength="1" value="">
+                    <input type="text" id="guesses4Num2" maxlength="1" value="">
+                    <input type="text" id="guesses4Num3" maxlength="1" value=""> <br><br>
+                </div>
+                <input type="text" id="playersOffer" maxlength="4" value="">
+                <input type="button" onclick="playersOffer(randomArr)" value="Offer" id="offersButton"><br>
+                <div id="offersOutput"></div>
+            </div>
+
+            <!-- Farmers game (Reverse mode) -->
+            <input type="button" id="farmer" onclick="startFarmersMode()" value="Play as a Farmer">
+            
+            <div id="agentscase">
+                    <div> <br>
+                        Farmers Mode is a reverse game of Bulls and Cows (The computer will guess your number)<br>
+                        <input type="button" value="New Game" onclick="document.location.reload()"  id="resetFarmersGame"> <br><br>
+                        Type your number: <br>
+                        <input type="text" maxlength="4" id="numHolder" value="">
+                        <div id="numHolderOutput"></div>
+                        <input type="button" onclick="StartGame()" value="Start" id="startFarmerBtn"><br>
+                        <div id="4Dmsg"></div>
+                    </div>
+                    <div id="showFarmersModeMenu">
+                        Bulls:
+                        <input type="number" id="yourBulls" maxlength="1" min="0" max="4" value="0">
+                        Cows:
+                        <input type="number" id="yourCows" maxlength="1" min="0" max="4" value="0">
+                        <input type="button" onclick="yourAnswer(theNumbers)" value="Your answer" id="yourAnswerButton"><br>
+                        <div id="offersOutput2"></div>
+                    </div>
+                </div>
+        </div>
+        <!-- Hit the Bull -->
+        <button id="showHitTheBullGame">Hit the Bull</button><br>
+        <div id="hitTheBullResult">
+            <div id="scoreShow">Hit 20 Bulls! <br>Score:
+            <span class="score">0</span></div> <br>
+            <div id="congrats"></div>
+        </div>
+        <div id="showHittheBull">
+            <input type="button" onclick="StartHitTheBullGame()" id="startHitTheBullBtn" value="Start Game"><br>
+            <div id="showGameBoard" class="gameboard"></div>
+            <div id="message"></div><br><br>
+        </div>
+        <input type="button" value="Finish" onclick="document.location.reload()" id="finishHitTheBullBtn" ><br><br>
+
+        <!-- Bull, Farmer, Cow (Standart Rock, Paper, Scissors) -->
+        <button id="showBullFarmerCow">Bull, Farmer, Cow</button><br><br>
+        <div id="BullFarmerCowGameBoard">
+            This is a standart Rock, Paper, Scissors game (Bull = Rock, Paper = Cow, Scissors = Farmer) <br>
+            <div>Choose "bull", "farmer", "cow"</div>
+            <input type="text" id="playersBFC" value="">
+            <button onclick="playBullFarmerCow()" id="goBtn">Go</button><br>
+            <div id="outputBFC"></div><br><br>
+            <button id="restartBFC" onclick="restartBFC()">Restart</button>
+        </div>
+    </div>
+    
+    <!-- Tickets -->
+    <div>
+        <div id="tickets">
+            Agent Ticket:<br>
+            <div id="xxxAgent">You don`t have it!</div>
+                <img src="Images/AgentTicket.png" id="farmerTicket" ><br>
+            Farm Ticket:<br>
+            <div id="xxxFarm">You don`t have it!</div>
+                <img src="Images/FarmerTicket.png" id="agentTicket" ><br>
+            Bulls and Cows Ticket:<br>
+            <div id="xxxBAC">You don`t have it!</div>
+                <img src="Images/BaCTicket.png" id="BaCTicketInTicketsMenu" ><br>
+            Hit the Bull Ticket:<br>
+            <div id="xxxHTB">You don`t have it!</div>
+                <img src="Images/Bull.png" id="hitTheBullTicketMenu" ><br>
+            Bull, Farmer, Cow Ticket:<br>
+            <div id="xxxBFC">You don`t have it!</div>
+                <img src="Images/BFC.png" id="BullFarmerCowTicketMenu"><br>
+            Rocking Bull Ticket:<br>
+            <div id="xxxRB">You don`t have it!</div>
+                <img src="Images/RockingBull.png" id="RockingBullTicketMenu"><br>
+            Paper Cow Ticket:<br>
+            <div id="xxxPC">You don`t have it!</div>
+                <img src="Images/PaperCow.png" id="PaperCowTicketMenu"><br>
+            Scissors Farmer Ticket:<br>
+            <div id="xxxSF">You don`t have it!</div>
+                <img src="Images/ScissorsFarmer.png" id="ScissorsFarmerTicketMenu"><br>
+            Retire Ticket:<br>
+            <div id="xxxRet">You don`t have it!</div>
+                <img src="Images/Retire.png" id="RetireTicketMenu"><br>
+        </div>
+    </div>
+    <!-- Shop -->
+    <div id="showShop">
+        <div id="store">WELCOME TO THE STORE</div><br>
+        Bulls and Cows Ticket:<br><div id="haveBaCT"></div>
+            <div id="BaCPack">Cost: 600 $$$ <br>
+                <img src="Images/BaCTicket.png" id="BaCTicket"> <br> 
+                <button onclick="takeBaCTicket()">Take it!</button><br>
+                <div id="noMoneyMsg"></div></div>
+
+        <br><br>Rocking Bull:<br><div id="haveRockingBull"></div>
+            <div id="RockingBullPack">Cost: 500 $$$ <br>
+                <img src="Images/RockingBull.png" id="RockingBullTicket"> <br> 
+                <button onclick="takeRockingBull()">Take it!</button><br>
+                <div id="noMoneyRockingBull"></div></div>
+
+        <br><br>Paper Cow:<br><div id="havePaperCow"></div>
+        <div id="PaperCowPack">Cost: 500 $$$ <br>
+            <img src="Images/PaperCow.png" id="PaperCowTicket"> <br> 
+            <button onclick="takePaperCow()">Take it!</button><br>
+            <div id="noMoneyPaperCow"></div></div>
+
+        <br><br>Scissors Farmer:<br><div id="haveScissorsFarmer"></div>
+        <div id="ScissorsFarmerPack">Cost: 500 $$$ <br>
+            <img src="Images/ScissorsFarmer.png" id="ScissorsFarmerTicket"> <br> 
+            <button onclick="takeScissorsFarmer()">Take it!</button><br>
+            <div id="noMoneyScissorsFarmer"></div></div>
+        
+        <br><br>Retire:<br><div id="haveRetire"></div>
+        <div id="RetirePack">Cost: 1000 $$$ <br>
+            <img src="Images/Retire.png" id="RetireTicket"> <br> 
+            <button onclick="takeRetire()">Take it!</button><br>
+            <div id="noMoneyRetire"></div></div>
+    </div>
+    <script src="script.js" type="text/javascript"></script>
+</body>
+</html>
